@@ -1,0 +1,22 @@
+<VirtualHost *:80>
+    ServerName wshop-api.loc
+    ServerAlias www.wshop-api.loc
+
+    DocumentRoot /path/to/public
+
+    DirectoryIndex index.php index.html index.htm
+
+    <Directory /path/to/public>
+        Options -Indexes
+
+        # .htaccess isn't required if you include this
+        <IfModule mod_rewrite.c>
+            RewriteEngine On
+            RewriteBase /
+            RewriteRule ^index.php$ - [L]
+            RewriteCond %{REQUEST_FILENAME} !-f
+            RewriteCond %{REQUEST_FILENAME} !-d
+            RewriteRule . /index.php [L]
+        </IfModule>
+    </Directory>
+</VirtualHost>

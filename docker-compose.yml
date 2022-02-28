@@ -1,0 +1,45 @@
+version: '3.5'
+
+volumes:
+  logs:
+    driver: local
+
+services:
+  gac_slim:
+    image: gac_backend_img
+    working_dir: /var/www
+    container_name: gac_slim
+    command: php -S 0.0.0.0:8085 -t ./public
+    environment:
+      docker: "true"
+    ports:
+      - 8085:8085
+    volumes:
+      - ./backend:/var/www
+      - ./backend/var/logs:/var/www/logs
+    networks:
+      - gac_databases
+      - gac_tech
+
+  gac_mysql:
+    image: mysql:5.6
+    container_name: gac_mysql
+    restart: unless-stopped
+    environment:
+      - MYSQL_DATABASE=gac_tech
+      - MYSQL_USER=mysql
+      - MYSQL_PASSWORD=QUIVg
+      - MYSQL_ROOT_PASSWORD=GgRKSo
+    ports:
+      - '3307:3306'
+    volumes:
+      - ./mysql/db:/var/lib/mysql:rw
+    networks:
+      - gac_databases
+
+networks:
+  gac_tech:
+    name: gac_tech
+  gac_databases:
+    name: gac_databases
+    driver: bridge

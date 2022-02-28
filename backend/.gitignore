@@ -1,0 +1,9 @@
+.idea/
+.vscode/
+/coverage/
+/vendor/
+/logs/*
+/scripts/wshop-api.conf
+/app/settings.php
+!/logs/README.md
+.phpunit.result.cache
