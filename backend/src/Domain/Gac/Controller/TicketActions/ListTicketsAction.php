@@ -26,7 +26,16 @@ class ListTicketsAction extends AbstractTicketAction
             if (!is_array($filter)) $filter = [];
         }
 
-        $response = $this->ticketManager->findAllPaginate(0, 15, $filter);
+        if (isset($filter['totalCall'])) {
+            $response = $this->ticketManager->findTotalCall();
+        } elseif (isset($filter['topTen'])) {
+            $response = $this->ticketManager->findTopTen();
+        } elseif (isset($filter['totalSMS'])) {
+            $response = $this->ticketManager->findTotalSMS();
+        } else {
+            throw new \InvalidArgumentException('Unexpected filter given!');
+        }
+
         $this->logger->info("ListTicketsAction was viewed.");
 
         return $this->respondWithData($response);
