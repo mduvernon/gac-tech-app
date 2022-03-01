@@ -1,5 +1,15 @@
 This project provides a CRUD operation on ticket entity
 
+You must build the dockerfile image using the following command line
+
+`./bin/docker_build.sh
+`
+
+You can now run docker-compose
+
+`docker-compose up -d
+`
+
 Install the project via:
 
 `composer install
@@ -16,7 +26,7 @@ Ypu have to be ine the project root directory and run the following command line
 `php -S 0.0.0.0:8080 -t public`
 
 Api endpoints:
-* Ticket list          GET     /tickets         you can filter by name like ?filter={"name":"<name>"}
+* Ticket list          GET     /tickets         you can filter by name like ?filter={"totalCall":"boolean"}, ?filter={"topTen":"boolean"}, ?filter={"totalSMS":"boolean"}
 * Single ticket        GET     /tickets/{id}
 * Delete one ticket    DELETE  /tickets/{id}
 * Create one ticket    POST    /tickets         the request shall be formatted like {"name":"<Non>","description":"<description>"}
