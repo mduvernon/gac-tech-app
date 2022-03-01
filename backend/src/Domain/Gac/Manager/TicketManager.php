@@ -142,7 +142,6 @@ SQL;
     {
         $conn = $this->em->getConnection();
 
-        // @todo - find by Retrouver la durée totale réelle des appels effectués après le 15/02/2012 (inclus)
         $sql = <<<SQL
 SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(t.real_duration))) AS TotalTime
 FROM ticket t 
@@ -151,7 +150,8 @@ AND t.`type` LIKE '%appel%'
 SQL;
 
         $q = $conn->prepare($sql);
-        return $q->executeQuery();
+        return $q->executeQuery()
+            ->fetchAssociative();
     }
 
     /**
@@ -163,7 +163,6 @@ SQL;
     {
         $conn = $this->em->getConnection();
 
-        // todo - Retrouver le TOP 10 des volumes data facturés en dehors de la tranche horaire 8h00- 18h00, par abonné.
         $sql = <<<SQL
 SELECT * 
 FROM ticket t 
@@ -182,7 +181,8 @@ AND `type` LIKE '%connexion%'
 SQL;
 
         $q = $conn->prepare($sql);
-        return $q->executeQuery();
+        return $q->executeQuery()
+            ->fetchAllAssociative();
     }
 
     /**
@@ -195,14 +195,14 @@ SQL;
     {
         $conn = $this->em->getConnection();
 
-        // todo - Retrouver la quantité totale de SMS envoyés par l'ensemble des abonnés
         $sql = <<<SQL
 SELECT COUNT(*) 
 FROM ticket t 
 WHERE t.`type` LIKE '%sms%'
 SQL;
         $q = $conn->prepare($sql);
-        return $q->executeQuery();
+        return $q->executeQuery()
+            ->fetchOne();
     }
 
     /**

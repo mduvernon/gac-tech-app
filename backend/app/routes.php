@@ -19,7 +19,6 @@ return function (App $app) {
 
     $app->group('/tickets', function (Group $group) {
         $group->get('', \Domain\Gac\Controller\TicketActions\ListTicketsAction::class);
-        $group->get('/archives', \Domain\Gac\Controller\TicketActions\ListTicketsArchivesAction::class);
         $group->get('/{id}', \Domain\Gac\Controller\TicketActions\ReadTicketAction::class);
         $group->post('', \Domain\Gac\Controller\TicketActions\CreateTicketAction::class);
         $group->put('/{id}', \Domain\Gac\Controller\TicketActions\UpdateTicketAction::class);
